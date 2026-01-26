@@ -15,7 +15,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* CSS Optimizado (idéntico al que te pasé antes) */
+        /* FIX: Reset global para corregir el ancho en móviles */
+        *, *::before, *::after { box-sizing: border-box; }
+
+        /* CSS Original (Optimizado) */
         body{font-family:'Inter',sans-serif;scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background-color:#F3F4F6;color:#374151;margin:0}
         .container{width:100%;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem}
         @media (min-width:640px){.container{max-width:640px;padding-left:1.5rem;padding-right:1.5rem}}
@@ -31,10 +34,15 @@
         .radio-custom{position:absolute;opacity:0;width:0;height:0}
         .radio-custom:checked+.radio-custom-label{background-color:#2563EB;color:#fff;border-color:#2563EB;box-shadow:0 0 0 2px #93C5FD}
         .error-message{color:#DC2626;font-size:.75rem;margin-top:.25rem}
+        /* Nuevo estilo para el mensaje global de error */
+        .form-global-error{color:#DC2626; font-weight: 600; text-align: center; margin-top: 1rem; display: none; padding: 0.5rem; background-color: #FEF2F2; border: 1px solid #FECACA; border-radius: 0.375rem;}
+        
         .result-area{margin-top:2rem;padding:1.5rem;border-radius:.5rem;box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04);text-align:center}
         .result-qualified{background-color:#F0FDF4;border-left:4px solid #22C55E;color:#166534}
+        .result-qualified-warning{background-color:#FFF7ED;border-left:4px solid #F97316;color:#9A3412} /* Naranja para Warning */
         .result-not-qualified{background-color:#FEF2F2;border-left:4px solid #EF4444;color:#991B1B}
         .result-more-info{background-color:#FEFCE8;border-left:4px solid #EAB308;color:#854D0E}
+        
         .section-fade-in{opacity:0;transform:translateY(30px);transition:opacity .8s ease-out,transform .8s ease-out}
         .section-fade-in.visible{opacity:1;transform:translateY(0)}
         .navbar{background-color:#fff;box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06);position:sticky;top:0;z-index:50}
@@ -217,7 +225,7 @@
                     <p class="form-intro">Answer 6 quick questions below. Get an immediate, no-commitment insight into your eligibility for the Colombian Pensioner Visa and take the first step towards your dream retirement.</p>
                     <form id="pensionerVisaForm" class="space-y-8">
                         <div>
-                            <label for="pensionAmount" class="form-label">1. Is your monthly pension income higher than $1,100 USD?</label>
+                            <label for="pensionAmount" class="form-label">1. Is your monthly pension income higher than $1,450 USD?</label>
                             <input type="number" id="pensionAmount" name="pensionAmount" class="form-input" placeholder="Enter amount, e.g., 1500" required min="0">
                             <span class="error-message" id="pensionAmountError"></span>
                         </div>
@@ -262,6 +270,8 @@
                             <span class="error-message" id="apostilleKnowledgeError"></span>
                         </div>
                         <button type="submit" id="submitQualificationBtn" class="btn form-submit-btn">Check My Eligibility</button>
+                        
+                        <div id="formErrorMessage" class="form-global-error">Please fill in all required fields marked in red.</div>
                     </form>
                     <div id="resultArea" style="display: none;"></div>
                 </div>
@@ -408,6 +418,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('pensionerVisaForm');
             const resultArea = document.getElementById('resultArea');
+            const formErrorMessage = document.getElementById('formErrorMessage');
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
 
@@ -444,12 +455,16 @@
             }, observerOptions);
             sections.forEach(section => observer.observe(section));
 
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            const yearSpan = document.getElementById('currentYear');
+            if(yearSpan) yearSpan.textContent = new Date().getFullYear();
 
             if (form) {
                 form.addEventListener('submit', function (event) {
                     event.preventDefault();
+                    formErrorMessage.style.display = 'none';
+
                     if (!validateQualificationForm()) {
+                        formErrorMessage.style.display = 'block';
                         const firstError = form.querySelector('.border-red-500, .text-red-600:not(:empty)');
                         if(firstError) {
                             const fieldWithError = firstError.closest('div[class*="space-y-8"] > div, div[class*="space-y-2"]');
@@ -467,13 +482,22 @@
                     
                     let qualificationStatus = 'MORE_INFO_NEEDED';
                     
-                    if (pensionAmount && healthCert && pensionCert && criminalRecord) {
-                        if (pensionAmount > 1100 && criminalRecord === 'no' && healthCert === 'yes' && pensionCert === 'yes') {
+                    // Lógica actualizada: $1450 y Warning
+                    if (criminalRecord === 'yes') {
+                        qualificationStatus = 'NOT_QUALIFIED';
+                    } else if (pensionAmount < 1400) {
+                        qualificationStatus = 'NOT_QUALIFIED';
+                    } else if (healthCert === 'no' || healthCert === 'unsure' || pensionCert === 'no' || pensionCert === 'unsure') {
+                         qualificationStatus = 'MORE_INFO_NEEDED';
+                    } else {
+                        // Cumple lo básico, revisamos rango 1400-1500
+                        if (pensionAmount >= 1400 && pensionAmount <= 1500) {
+                            qualificationStatus = 'QUALIFIED_WITH_WARNING';
+                        } else if (pensionAmount > 1500) {
                             qualificationStatus = 'QUALIFIED';
-                        } else if (pensionAmount <= 1100 || criminalRecord === 'yes') {
-                            qualificationStatus = 'NOT_QUALIFIED';
                         }
                     }
+
                     displayResults(qualificationStatus, pensionAmount, criminalRecord);
                 });
             }
@@ -481,75 +505,108 @@
             function displayResults(status, pension, crime) {
                 resultArea.innerHTML = '';
                 resultArea.className = 'result-area';
+                resultArea.style = ''; // Limpiar estilos en línea
                 resultArea.style.display = 'block';
                 let content = '';
 
-                const phoneNumber = "573223395612";
-                let whatsappMessage = "Hello Camila, I've just completed the Pensioner Visa eligibility check on your website.\n\nMy Qualification Answers:\n";
-                whatsappMessage += `1. Pension > $1,100 USD?: ${document.getElementById('pensionAmount').value}\n`;
-                whatsappMessage += `2. Good Health Certificate?: ${document.querySelector('input[name="healthCert"]:checked')?.value || 'N/A'}\n`;
-                whatsappMessage += `3. Pension Certificate?: ${document.querySelector('input[name="pensionCert"]:checked')?.value || 'N/A'}\n`;
-                whatsappMessage += `4. Current Residence: ${document.getElementById('countryResidence').value}\n`;
+                const phoneNumber = "573223395612"; // Tu número
+                
+                let whatsappMessage = "Hello Camila, I've just completed the Pensioner Visa eligibility check.\n\nMy Answers:\n";
+                whatsappMessage += `1. Pension Amount: $${document.getElementById('pensionAmount').value} USD\n`;
+                whatsappMessage += `2. Good Health?: ${document.querySelector('input[name="healthCert"]:checked')?.value || 'N/A'}\n`;
+                whatsappMessage += `3. Pension Cert?: ${document.querySelector('input[name="pensionCert"]:checked')?.value || 'N/A'}\n`;
+                whatsappMessage += `4. Residence: ${document.getElementById('countryResidence').value}\n`;
                 whatsappMessage += `5. Criminal Record?: ${document.querySelector('input[name="criminalRecord"]:checked')?.value || 'N/A'}\n`;
-                whatsappMessage += `6. Apostille Knowledge?: ${document.querySelector('input[name="apostilleKnowledge"]:checked')?.value || 'N/A'}\n\n`;
-                whatsappMessage += "I would like to request a formal proposal.\n\nHere are my details for the proposal:\n\n*My Full Name:* \n*My Email Address:* \n\nThank you!";
+                whatsappMessage += `6. Apostille?: ${document.querySelector('input[name="apostilleKnowledge"]:checked')?.value || 'N/A'}\n\n`;
                 
-                const encodedMessage = encodeURIComponent(whatsappMessage);
-                const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-                
-                const btnWhatsappClasses = "btn bg-green-600 text-white hover:bg-green-700 focus:ring-green-500 flex items-center justify-center text-lg py-3.5 px-8 inline-flex";
-                const whatsappIconHtml = `<img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp--v1.png" alt="WhatsApp" style="width:24px; height:24px; margin-right:8px; display:inline-block; vertical-align:middle;"/>`;
+                const whatsappIconHtml = `<img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp--v1.png" alt="WhatsApp" style="width:20px; height:20px; margin-right:8px; display:inline-block; vertical-align:middle;"/>`;
+
+                // *** TEXTOS RESTAURADOS ***
 
                 if (status === 'QUALIFIED') {
+                    // Texto Original de Éxito
+                    whatsappMessage += "I qualify! Please send me a formal proposal.\n\n*Name:* \n*Email:* ";
+                    const link = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+                    
                     resultArea.classList.add('result-qualified');
-                    content = `<h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem;">Positive Initial Assessment! 🎉</h3><p style="font-size: 1.125rem; margin-bottom: 1.25rem;">Based on your answers, your profile meets the initial criteria to begin the Pensioner Visa process.</p><p style="font-size: 1.125rem; margin-bottom: 1.5rem;"><strong>Ready to discuss the legal steps and receive a proposal?</strong></p><a href="${whatsappLink}" target="_blank" style="display:inline-flex; align-items:center; justify-content:center; background-color:#22C55E; color:white; padding: 0.875rem 2rem; border-radius: 0.5rem; text-decoration:none; font-weight:600;">${whatsappIconHtml} Request Legal Service Proposal</a>`;
+                    content = `<h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem;">Positive Initial Assessment! 🎉</h3>
+                    <p style="font-size: 1.125rem; margin-bottom: 1.25rem;">Based on your answers, your profile meets the initial criteria to begin the Pensioner Visa process.</p>
+                    <p style="font-size: 1.125rem; margin-bottom: 1.5rem;"><strong>Ready to discuss the legal steps and receive a proposal?</strong></p>
+                    <a href="${link}" target="_blank" class="btn" style="background-color:#22C55E; color:white; padding: 0.8rem 2rem; text-decoration:none;">${whatsappIconHtml} Request Legal Service Proposal</a>`;
+                
+                } else if (status === 'QUALIFIED_WITH_WARNING') {
+                    // Nuevo Texto Warning (Tono Profesional)
+                    whatsappMessage += "I am borderline on the amount (Exchange rate risk). Can we discuss?";
+                    const link = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+                    
+                    resultArea.classList.add('result-qualified-warning');
+                    content = `<h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem; color: #9A3412;">Positive Assessment with a Note ⚠️</h3>
+                    <p style="font-size: 1.125rem; margin-bottom: 1.25rem;">Based on your answers, your profile meets the initial criteria, but your pension amount is close to the minimum requirement.</p>
+                    <p style="font-size: 1.125rem; margin-bottom: 1.5rem;">Due to fluctuating exchange rates, this requires careful timing. <strong>We invite you to discuss your strategy with us to ensure success.</strong></p>
+                    <a href="${link}" target="_blank" class="btn" style="background-color:#EA580C; color:white; padding: 0.8rem 2rem; text-decoration:none;">${whatsappIconHtml} Discuss My Strategy</a>`;
+                
                 } else if (status === 'NOT_QUALIFIED') {
+                    // Texto Original de Rechazo + Botón añadido
+                    whatsappMessage += "I didn't qualify directly, but I want to discuss other visa options.";
+                    const link = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+                    
                     resultArea.classList.add('result-not-qualified');
-                    let reason = (pension <= 1100) ? "your monthly pension appears to be below the minimum." : "having a criminal record can affect eligibility.";
-                    content = `<h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem;">Thank You for Your Assessment.</h3><p style="font-size: 1.125rem; margin-bottom: 1.25rem;">Based on your responses (e.g., ${reason}), the Pensioner Visa might not be the most direct route.</p><p style="font-size: 1.125rem;">However, we invite you to explore other options or discuss your strategy with us.</p>`;
-                } else { // MORE_INFO_NEEDED
+                    let reason = (pension < 1400) ? "your monthly pension appears to be below the minimum" : "having a criminal record can affect eligibility";
+                    
+                    content = `<h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem;">Thank You for Your Assessment.</h3>
+                    <p style="font-size: 1.125rem; margin-bottom: 1.25rem;">Based on your responses (e.g., ${reason}.), the Pensioner Visa might not be the most direct route.</p>
+                    <p style="font-size: 1.125rem; margin-bottom: 1.5rem;">However, we invite you to explore other options or discuss your strategy with us.</p>
+                    <a href="${link}" target="_blank" class="btn" style="background-color:#EF4444; color:white; padding: 0.8rem 2rem; text-decoration:none;">${whatsappIconHtml} Explore Other Options</a>`;
+                
+                } else { 
+                    // Texto Original de More Info
+                    whatsappMessage += "I need a legal review of my documents.";
+                    const link = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
                     resultArea.classList.add('result-more-info');
-                    content = `<h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem;">Thank You! We Need a Few More Details.</h3><p style="font-size: 1.125rem; margin-bottom: 1.5rem;">Your profile shows potential, but we need more information for a full legal assessment. Please connect via WhatsApp to discuss your case.</p><a href="${whatsappLink}" target="_blank" style="display:inline-flex; align-items:center; justify-content:center; background-color:#22C55E; color:white; padding: 0.875rem 2rem; border-radius: 0.5rem; text-decoration:none; font-weight:600;">${whatsappIconHtml} Send Results for Legal Review</a>`;
+                    content = `<h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem;">Thank You! We Need a Few More Details.</h3>
+                    <p style="font-size: 1.125rem; margin-bottom: 1.5rem;">Your profile shows potential, but we need more information for a full legal assessment. Please connect via WhatsApp to discuss your case.</p>
+                    <a href="${link}" target="_blank" class="btn" style="background-color:#CA8A04; color:white; padding: 0.8rem 2rem; text-decoration:none;">${whatsappIconHtml} Send Results for Legal Review</a>`;
                 }
+                
                 resultArea.innerHTML = content;
                 resultArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
 
             function validateQualificationForm() {
                 let isValid = true;
-                const fieldsToValidate = [
-                    { id: 'pensionAmount', errorId: 'pensionAmountError', validation: val => val && !isNaN(parseInt(val)) && parseInt(val) >= 0, message: 'Valid pension amount is required.' },
-                    { group: 'healthCert', errorId: 'healthCertError', message: 'Please select an option.' },
-                    { group: 'pensionCert', errorId: 'pensionCertError', message: 'Please select an option.' },
-                    { id: 'countryResidence', errorId: 'countryResidenceError', validation: val => val.trim() !== '', message: 'Country of residence is required.' },
-                    { group: 'criminalRecord', errorId: 'criminalRecordError', message: 'Please select an option.' },
-                    { group: 'apostilleKnowledge', errorId: 'apostilleKnowledgeError', message: 'Please select an option.' }
-                ];
-                fieldsToValidate.forEach(field => {
-                    if (field.id) {
-                        isValid = validateField(document.getElementById(field.id), field.errorId, field.validation, field.message) && isValid;
+                const validate = (id, checkFn) => {
+                    const el = document.getElementById(id);
+                    const errorEl = document.getElementById(id + 'Error');
+                    if(!el) return true; 
+                    if(!checkFn(el.value)) {
+                        el.classList.add('border-red-500'); 
+                        if(errorEl) errorEl.textContent = "Required";
+                        return false;
                     } else {
-                        isValid = validateRadio(field.group, field.errorId, field.message) && isValid;
+                        el.classList.remove('border-red-500');
+                        if(errorEl) errorEl.textContent = "";
+                        return true;
                     }
-                });
-                return isValid;
-            }
+                };
+                const validateRadio = (name, errId) => {
+                    const checked = document.querySelector(`input[name="${name}"]:checked`);
+                    const errEl = document.getElementById(errId);
+                    if(!checked) {
+                        if(errEl) errEl.textContent = "Please select an option";
+                        return false;
+                    }
+                    if(errEl) errEl.textContent = "";
+                    return true;
+                };
 
-            function validateField(element, errorId, validationFn, message) {
-                const errorEl = document.getElementById(errorId);
-                if (!validationFn(element.value)) {
-                    errorEl.textContent = message;
-                    element.classList.add('border-red-500'); return false;
-                }
-                errorEl.textContent = ''; element.classList.remove('border-red-500'); return true;
-            }
-            function validateRadio(groupName, errorId, message) {
-                const errorEl = document.getElementById(errorId);
-                const checked = document.querySelector(`input[name="${groupName}"]:checked`);
-                if (!checked) {
-                    errorEl.textContent = message; return false;
-                }
-                errorEl.textContent = ''; return true;
+                isValid = validate('pensionAmount', v => v && v > 0) && isValid;
+                isValid = validate('countryResidence', v => v.trim() !== '') && isValid;
+                isValid = validateRadio('healthCert', 'healthCertError') && isValid;
+                isValid = validateRadio('pensionCert', 'pensionCertError') && isValid;
+                isValid = validateRadio('criminalRecord', 'criminalRecordError') && isValid;
+                isValid = validateRadio('apostilleKnowledge', 'apostilleKnowledgeError') && isValid;
+                
+                return isValid;
             }
         });
     </script>
