@@ -220,7 +220,7 @@
                     <p class="form-intro">Answer 6 quick questions below. Get an immediate, no-commitment insight into your eligibility for the Colombian Pensioner Visa and take the first step towards your dream retirement.</p>
                     <form id="pensionerVisaForm" class="space-y-8">
                         <div>
-                            <label for="pensionAmount" class="form-label">1. Is your monthly pension income higher than $1,100 USD?</label>
+                            <label for="pensionAmount" class="form-label">1. Is your monthly pension income higher than $1,450 USD?</label>
                             <input type="number" id="pensionAmount" name="pensionAmount" class="form-input" placeholder="Enter amount, e.g., 1500" required min="0">
                             <span class="error-message" id="pensionAmountError"></span>
                         </div>
@@ -471,9 +471,10 @@
                     let qualificationStatus = 'MORE_INFO_NEEDED';
                     
                     if (pensionAmount && healthCert && pensionCert && criminalRecord) {
-                        if (pensionAmount > 1100 && criminalRecord === 'no' && healthCert === 'yes' && pensionCert === 'yes') {
+                        // UPDATED LOGIC FOR NEW USD AMOUNT
+                        if (pensionAmount > 1450 && criminalRecord === 'no' && healthCert === 'yes' && pensionCert === 'yes') {
                             qualificationStatus = 'QUALIFIED';
-                        } else if (pensionAmount <= 1100 || criminalRecord === 'yes') {
+                        } else if (pensionAmount <= 1450 || criminalRecord === 'yes') {
                             qualificationStatus = 'NOT_QUALIFIED';
                         }
                     }
@@ -489,7 +490,8 @@
 
                 const phoneNumber = "573223395612";
                 let whatsappMessage = "Hello Camila, I've just completed the Pensioner Visa eligibility check on your website.\n\nMy Qualification Answers:\n";
-                whatsappMessage += `1. Pension > $1,100 USD?: ${document.getElementById('pensionAmount').value}\n`;
+                // UPDATED WHATSAPP MESSAGE LABEL
+                whatsappMessage += `1. Pension > $1,450 USD?: ${document.getElementById('pensionAmount').value}\n`;
                 whatsappMessage += `2. Good Health Certificate?: ${document.querySelector('input[name="healthCert"]:checked')?.value || 'N/A'}\n`;
                 whatsappMessage += `3. Pension Certificate?: ${document.querySelector('input[name="pensionCert"]:checked')?.value || 'N/A'}\n`;
                 whatsappMessage += `4. Current Residence: ${document.getElementById('countryResidence').value}\n`;
@@ -508,7 +510,8 @@
                     content = `<h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem;">Positive Initial Assessment! 🎉</h3><p style="font-size: 1.125rem; margin-bottom: 1.25rem;">Based on your answers, your profile meets the initial criteria to begin the Pensioner Visa process.</p><p style="font-size: 1.125rem; margin-bottom: 1.5rem;"><strong>Ready to discuss the legal steps and receive a proposal?</strong></p><a href="${whatsappLink}" target="_blank" style="display:inline-flex; align-items:center; justify-content:center; background-color:#22C55E; color:white; padding: 0.875rem 2rem; border-radius: 0.5rem; text-decoration:none; font-weight:600;">${whatsappIconHtml} Request Legal Service Proposal</a>`;
                 } else if (status === 'NOT_QUALIFIED') {
                     resultArea.classList.add('result-not-qualified');
-                    let reason = (pension <= 1100) ? "your monthly pension appears to be below the minimum." : "having a criminal record can affect eligibility.";
+                    // UPDATED REASON CHECK
+                    let reason = (pension <= 1450) ? "your monthly pension appears to be below the minimum." : "having a criminal record can affect eligibility.";
                     content = `<h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem;">Thank You for Your Assessment.</h3><p style="font-size: 1.125rem; margin-bottom: 1.25rem;">Based on your responses (e.g., ${reason}), the Pensioner Visa might not be the most direct route.</p><p style="font-size: 1.125rem;">However, we invite you to explore other options or discuss your strategy with us.</p>`;
                 } else { // MORE_INFO_NEEDED
                     resultArea.classList.add('result-more-info');
