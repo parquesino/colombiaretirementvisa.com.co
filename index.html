@@ -34,12 +34,11 @@
         .radio-custom{position:absolute;opacity:0;width:0;height:0}
         .radio-custom:checked+.radio-custom-label{background-color:#2563EB;color:#fff;border-color:#2563EB;box-shadow:0 0 0 2px #93C5FD}
         .error-message{color:#DC2626;font-size:.75rem;margin-top:.25rem}
-        /* Nuevo estilo para el mensaje global de error */
         .form-global-error{color:#DC2626; font-weight: 600; text-align: center; margin-top: 1rem; display: none; padding: 0.5rem; background-color: #FEF2F2; border: 1px solid #FECACA; border-radius: 0.375rem;}
         
         .result-area{margin-top:2rem;padding:1.5rem;border-radius:.5rem;box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04);text-align:center}
         .result-qualified{background-color:#F0FDF4;border-left:4px solid #22C55E;color:#166534}
-        .result-qualified-warning{background-color:#FFF7ED;border-left:4px solid #F97316;color:#9A3412} /* Naranja para Warning */
+        .result-qualified-warning{background-color:#FFF7ED;border-left:4px solid #F97316;color:#9A3412}
         .result-not-qualified{background-color:#FEF2F2;border-left:4px solid #EF4444;color:#991B1B}
         .result-more-info{background-color:#FEFCE8;border-left:4px solid #EAB308;color:#854D0E}
         
@@ -146,6 +145,23 @@
         .footer .legal-links{margin-top:1.5rem;display:flex;justify-content:center;gap:1.5rem}
         .footer .legal-links a{color:#9CA3AF;text-decoration:none}
         .footer .legal-links a:hover{color:#60A5FA}
+
+        /* Estilos específicos para la sección de Precios (Pricing) */
+        .pricing-section { padding: 5rem 0; background-color: #fff; }
+        .pricing-card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 1rem; overflow: hidden; max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr; }
+        @media (min-width: 768px) { .pricing-card { grid-template-columns: 1fr 1fr; } }
+        .pricing-header { background: #1e3a8a; color: white; padding: 2.5rem; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .pricing-price { font-size: 3.5rem; font-weight: 800; margin: 1rem 0; }
+        .pricing-details { padding: 2.5rem; }
+        .pricing-details h3 { color: #1e3a8a; margin-top: 0; }
+        .pricing-list { list-style: none; padding: 0; margin: 1.5rem 0; }
+        .pricing-list li { margin-bottom: 0.75rem; display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.95rem; }
+        .pricing-list li::before { content: "✓"; color: #22c55e; font-weight: bold; }
+
+        /* Estilos para el botón de Google Reviews */
+        .google-btn { display: flex; align-items: center; justify-content: center; gap: 10px; background: #fff; color: #374151; border: 1px solid #d1d5db; padding: 0.75rem 1.5rem; margin: 2rem auto; width: fit-content; text-decoration: none; font-weight: 600; border-radius: 0.5rem; transition: transform 0.2s; }
+        .google-btn:hover { transform: scale(1.05); }
+
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800 antialiased">
@@ -279,6 +295,32 @@
             </div>
         </section>
 
+        <section class="pricing-section">
+            <div class="container">
+                <h2 class="section-title">Transparent Pricing</h2>
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <span style="text-transform: uppercase; font-weight: 700; letter-spacing: 0.1em;">Legal Service Fee</span>
+                        <div class="pricing-price">$500</div>
+                        <span>USD / Single Payment</span>
+                    </div>
+                    <div class="pricing-details">
+                        <h3>What's Included:</h3>
+                        <ul class="pricing-list">
+                            <li>Personalized Legal Strategy by Camila Ocampo.</li>
+                            <li>Full Document Review & Preparation.</li>
+                            <li>Government Platform Management.</li>
+                            <li>Continuous support until approval.</li>
+                            <li>Re-application at NO extra legal cost if needed.</li>
+                        </ul>
+                        <hr style="border: 0; border-top: 1px solid #e5e7eb; margin: 1.5rem 0;">
+                        <h4 style="margin-bottom: 0.5rem; color: #4b5563;">Government Fees (Approx):</h4>
+                        <p style="font-size: 0.9rem; color: #6b7280;">Study: $54 USD | Issuance: $270 USD | ID Card: $60 USD.<br><strong>Total Gov: ~$384 USD</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="why-us" class="content-section bg-white section-fade-in">
             <div class="container">
                 <h2 class="section-title">Your Trusted Partner: Why Choose Colombian Passport?</h2>
@@ -334,6 +376,11 @@
                         </div>
                     </div>
                 </div>
+
+                <a href="https://maps.google.com/?cid=12644200672048600000" target="_blank" class="google-btn">
+                    <img src="https://www.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png" width="20" alt="Google">
+                    View 40+ More Reviews on Google
+                </a>
             </div>
         </section>
 
@@ -510,7 +557,6 @@
                     } else if (healthCert === 'no' || healthCert === 'unsure' || pensionCert === 'no' || pensionCert === 'unsure') {
                          qualificationStatus = 'MORE_INFO_NEEDED';
                     } else {
-                        // Cumple lo básico, revisamos rango 1400-1500
                         if (pensionAmount >= 1400 && pensionAmount <= 1500) {
                             qualificationStatus = 'QUALIFIED_WITH_WARNING';
                         } else if (pensionAmount > 1500) {
@@ -525,11 +571,11 @@
             function displayResults(status, pension, crime) {
                 resultArea.innerHTML = '';
                 resultArea.className = 'result-area';
-                resultArea.style = ''; // Limpiar estilos en línea
+                resultArea.style = ''; 
                 resultArea.style.display = 'block';
                 let content = '';
 
-                const phoneNumber = "573223395612"; // Tu número
+                const phoneNumber = "573223395612"; 
                 
                 let whatsappMessage = "Hello Camila, I've just completed the Pensioner Visa eligibility check.\n\nMy Answers:\n";
                 whatsappMessage += `1. Pension Amount: $${document.getElementById('pensionAmount').value} USD\n`;
@@ -541,13 +587,9 @@
                 
                 const whatsappIconHtml = `<img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp--v1.png" alt="WhatsApp" style="width:20px; height:20px; margin-right:8px; display:inline-block; vertical-align:middle;"/>`;
 
-                // *** TEXTOS RESTAURADOS ***
-
                 if (status === 'QUALIFIED') {
-                    // Texto Original de Éxito
                     whatsappMessage += "I qualify! Please send me a formal proposal.\n\n*Name:* \n*Email:* ";
                     const link = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-                    
                     resultArea.classList.add('result-qualified');
                     content = `<h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem;">Positive Initial Assessment! 🎉</h3>
                     <p style="font-size: 1.125rem; margin-bottom: 1.25rem;">Based on your answers, your profile meets the initial criteria to begin the Pensioner Visa process.</p>
@@ -555,10 +597,8 @@
                     <a href="${link}" target="_blank" class="btn" style="background-color:#22C55E; color:white; padding: 0.8rem 2rem; text-decoration:none;">${whatsappIconHtml} Request Legal Service Proposal</a>`;
                 
                 } else if (status === 'QUALIFIED_WITH_WARNING') {
-                    // Nuevo Texto Warning (Tono Profesional)
                     whatsappMessage += "I am borderline on the amount (Exchange rate risk). Can we discuss?";
                     const link = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-                    
                     resultArea.classList.add('result-qualified-warning');
                     content = `<h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem; color: #9A3412;">Positive Assessment with a Note ⚠️</h3>
                     <p style="font-size: 1.125rem; margin-bottom: 1.25rem;">Based on your answers, your profile meets the initial criteria, but your pension amount is close to the minimum requirement.</p>
@@ -566,20 +606,16 @@
                     <a href="${link}" target="_blank" class="btn" style="background-color:#EA580C; color:white; padding: 0.8rem 2rem; text-decoration:none;">${whatsappIconHtml} Discuss My Strategy</a>`;
                 
                 } else if (status === 'NOT_QUALIFIED') {
-                    // Texto Original de Rechazo + Botón añadido
                     whatsappMessage += "I didn't qualify directly, but I want to discuss other visa options.";
                     const link = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-                    
                     resultArea.classList.add('result-not-qualified');
                     let reason = (pension < 1400) ? "your monthly pension appears to be below the minimum" : "having a criminal record can affect eligibility";
-                    
                     content = `<h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem;">Thank You for Your Assessment.</h3>
                     <p style="font-size: 1.125rem; margin-bottom: 1.25rem;">Based on your responses (e.g., ${reason}.), the Pensioner Visa might not be the most direct route.</p>
                     <p style="font-size: 1.125rem; margin-bottom: 1.5rem;">However, we invite you to explore other options or discuss your strategy with us.</p>
                     <a href="${link}" target="_blank" class="btn" style="background-color:#EF4444; color:white; padding: 0.8rem 2rem; text-decoration:none;">${whatsappIconHtml} Explore Other Options</a>`;
                 
                 } else { 
-                    // Texto Original de More Info
                     whatsappMessage += "I need a legal review of my documents.";
                     const link = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
                     resultArea.classList.add('result-more-info');
