@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Reset global para corregir el ancho en móviles */
+        /* Reset global */
         *, *::before, *::after { box-sizing: border-box; }
 
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; background-color: #F3F4F6; color: #374151; margin: 0; }
@@ -69,7 +69,11 @@
         
         header { background-color: #1E3A8A; color: #fff; padding: 4rem 0 6rem 0; text-align: center; }
         @media (min-width: 768px) { header { padding: 6rem 0 8rem 0; } }
-        .trust-badge-hero { display: inline-flex; align-items: center; gap: 8px; background-color: rgba(255,255,255,0.1); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.875rem; font-weight: 600; margin-bottom: 1.5rem; color: #FBBF24; }
+        
+        /* TRUST BADGE (Link clickable) */
+        .trust-badge-hero { display: inline-flex; align-items: center; gap: 8px; background-color: rgba(255,255,255,0.1); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.875rem; font-weight: 600; margin-bottom: 1.5rem; color: #FBBF24; text-decoration: none; transition: transform 0.2s, background-color 0.2s; }
+        .trust-badge-hero:hover { transform: scale(1.05); background-color: rgba(255,255,255,0.2); }
+
         header h1 { font-size: 2.25rem; font-weight: 800; margin-bottom: 1.5rem; line-height: 1.2; max-width: 800px; margin-left: auto; margin-right: auto; }
         header h2 { font-size: 1.125rem; font-weight: 300; margin-bottom: 2.5rem; max-width: 48rem; margin-left: auto; margin-right: auto; color: #D1D5DB; }
         @media (min-width: 640px) { header h1 { font-size: 2.75rem; } header h2 { font-size: 1.25rem; } }
@@ -121,10 +125,24 @@
         .consultation-perks li strong { color: #1D4ED8; }
         .consultation-perks li::before { content: "✓"; color: #22C55E; font-weight: 800; font-size: 1.1rem;}
         
-        .cta-consultation { background-color: #1D4ED8; color: white; padding: 1rem 2rem; font-size: 1.125rem; width: 100%; display: flex; justify-content: center; align-items: center; gap: 12px; border-radius: 0.5rem; }
+        .cta-consultation { background-color: #1D4ED8; color: white; padding: 1rem 2rem; font-size: 1.125rem; width: 100%; display: flex; justify-content: center; align-items: center; gap: 12px; border-radius: 0.5rem; text-decoration: none; }
         .cta-consultation:hover { background-color: #1E40AF; color: white; transform: scale(1.02); }
         .consultation-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         
+        /* ESTILOS NUEVOS PARA RESEÑAS TIPO GOOGLE */
+        .reviews-section { padding-bottom: 0; }
+        .reviews-grid { display: grid; gap: 1.5rem; margin-top: 1rem; }
+        @media (min-width: 768px) { .reviews-grid { grid-template-columns: repeat(3, 1fr); } }
+        .google-review-card { background: #fff; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #F3F4F6; display: flex; flex-direction: column; }
+        .review-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem; }
+        .reviewer-info { display: flex; align-items: center; gap: 0.75rem; }
+        .reviewer-avatar-img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+        .reviewer-details .name { font-weight: 700; font-size: 0.9rem; color: #1F2937; display: block; }
+        .reviewer-details .time { font-size: 0.75rem; color: #9CA3AF; }
+        .google-icon { width: 20px; height: 20px; }
+        .review-stars { color: #FBBC04; margin-bottom: 0.75rem; font-size: 1.1rem; letter-spacing: 1px; }
+        .review-text { font-size: 0.9rem; color: #4B5563; line-height: 1.5; flex-grow: 1; }
+
         .why-us-grid { display: grid; gap: 3rem; align-items: center; }
         @media (min-width: 768px) { .why-us-grid { grid-template-columns: repeat(2, 1fr); } }
         .camila-photo { width: 100%; max-width: 320px; height: auto; border-radius: .75rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,.25); }
@@ -199,9 +217,9 @@
 
     <header class="section-fade-in">
         <div class="container">
-            <div class="trust-badge-hero">
+            <a href="https://share.google/C2CIZMJ1ttgd3ywJE" target="_blank" class="trust-badge-hero">
                 ⭐ ⭐ ⭐ ⭐ ⭐ 5.0/5 Rating on Google Reviews
-            </div>
+            </a>
             <h1>Secure Your Colombian Retirement Visa with Expert Legal Guidance</h1>
             <h2>Stop guessing. Review the exact 2026 requirements below and find out if you qualify for an affordable, stress-free retirement in Colombia.</h2>
             
@@ -337,7 +355,7 @@
 
                 <div class="faq-item">
                     <h3>What are the exact government fees for this visa?</h3>
-                    <p>The Colombian government charges in two stages. First, a <strong>Study Fee of $54 USD</strong> must be paid when submitting the application. Once the visa is approved, you must pay an <strong>Issuance Fee of $270 USD</strong>. Additionally, once in Colombia, the Foreigner ID Card (Cédula de Extranjería) costs approximately <strong>$80 USD</strong>. The total government cost is roughly $404 USD.</p>
+                    <p>The Colombian government charges in two stages. First, a <strong>Study Fee of $54 USD</strong> must be paid when submitting the application. Once the visa is approved, you must pay an <strong>Issuance Fee of $270 USD</strong>. Additionally, once in Colombia, the Foreigner ID Card (Cédula de Extranjería) costs approximately <strong>$60 USD</strong>. The total government cost is roughly $384 USD.</p>
                 </div>
 
                 <div class="faq-item">
@@ -359,6 +377,58 @@
                     <p>No, the Pensioner Visa does not grant access to the public health system. You can access Colombia's excellent medical network by paying full private rates for services. Alternatively, you can contract a private local health insurance plan. <strong>Colombian Passport</strong> can assist you through our network of expert partners specialized in global assistance for foreigners.</p>
                 </div>
                 
+            </div>
+        </section>
+
+        <section class="reviews-section content-section bg-blue" style="padding-bottom: 0;">
+            <div class="container">
+                <h2 class="section-title" style="margin-bottom: 2rem;">Real Success Stories</h2>
+                <div class="reviews-grid">
+                    <div class="google-review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <img src="monique.png" alt="Monique Hussein Sara" class="reviewer-avatar-img">
+                                <div class="reviewer-details">
+                                    <span class="name">Monique Hussein Sara</span>
+                                    <span class="time">3 months ago</span>
+                                </div>
+                            </div>
+                            <img src="google-icon.png" alt="Google" class="google-icon">
+                        </div>
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"My experience with Colombian Passport, specifically with Camila Ocampo Matiz, Esq. and Mariangela Colmenares Esq., was exceptional. I cannot recall the last time I received such outstanding service from a company. The communication, efficiency, and responsiveness were truly first-class."</p>
+                    </div>
+
+                    <div class="google-review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <img src="ramon.webp" alt="Ramon Cobos Blesa" class="reviewer-avatar-img">
+                                <div class="reviewer-details">
+                                    <span class="name">Ramon Cobos Blesa</span>
+                                    <span class="time">7 months ago</span>
+                                </div>
+                            </div>
+                            <img src="google-icon.png" alt="Google" class="google-icon">
+                        </div>
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"It has been a very gratifying experience meeting Camila for obtaining my <strong>Pensioner Visa</strong> for Colombia. Being able to talk to an expert lawyer in Migration issues makes things much easier. Camila explains in detail all the documents you must gather... The value is that Camila explains it very easily and you save a lot of time. It is not the same to deal with people who invest the time necessary to explain all your doubts than to talk to an AI."</p>
+                    </div>
+
+                    <div class="google-review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <img src="sarah.png" alt="Sarah Duffy" class="reviewer-avatar-img">
+                                <div class="reviewer-details">
+                                    <span class="name">Sarah Duffy</span>
+                                    <span class="time">1 month ago</span>
+                                </div>
+                            </div>
+                            <img src="google-icon.png" alt="Google" class="google-icon">
+                        </div>
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"My case to migrate to Colombia was quite complicated. However, Camila and Mariangela did everything possible to ensure success. They are excellent communicators and were always one step ahead in answering my questions and making sure I was fully prepared at every step. I wish all lawyers were as professional as they are."</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -406,13 +476,13 @@
                         </ul>
                         <hr style="border: 0; border-top: 1px solid #e5e7eb; margin: 1.5rem 0;">
                         <h4 style="margin-bottom: 0.5rem; color: #4b5563;">Government Fees (Approx):</h4>
-                        <p style="font-size: 0.9rem; color: #6b7280; line-height:1.5;">Study: $54 USD | Issuance: $270 USD | ID Card: $80 USD.<br><strong>Total Gov: ~$404 USD</strong></p>
+                        <p style="font-size: 0.9rem; color: #6b7280; line-height:1.5;">Study: $54 USD | Issuance: $270 USD | ID Card: $60 USD.<br><strong>Total Gov: ~$384 USD</strong></p>
                     </div>
                 </div>
 
                 <div class="third-party-costs">
-                    <h4>Estimated Other Expenses</h4>
-                    <p><strong>Please note:</strong> To comply with strict transparency standards, we want you to be aware of other potential expenses related to your visa process. <em>These are estimates for independent services you will likely need.</em></p>
+                    <h4>Estimated Third-Party Expenses</h4>
+                    <p><strong>Please note:</strong> To comply with strict transparency standards, we want you to be aware of other potential expenses related to your visa process. <em>These are estimates for independent third-party services you will likely need. These are NOT services provided, billed, or collected by Colombian Passport.</em></p>
                     
                     <p style="font-weight: 700; margin-top: 1.25rem; margin-bottom: 0.5rem; color: #92400E; font-size: 0.95rem;">Universal Requirements (For all applicants):</p>
                     <ul>
@@ -487,6 +557,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Mobile Menu
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
             if (mobileMenuButton && mobileMenu) {
@@ -498,6 +569,7 @@
                 });
             }
             
+            // Smooth Scroll
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -508,6 +580,7 @@
                 });
             });
             
+            // Fade-in Animation
             const sections = document.querySelectorAll('.section-fade-in');
             const observer = new IntersectionObserver((entries, obs) => {
                 entries.forEach(entry => {
@@ -519,9 +592,11 @@
             }, { threshold: 0.1 });
             sections.forEach(section => observer.observe(section));
 
+            // Dynamic Year
             const yearSpan = document.getElementById('currentYear');
             if(yearSpan) yearSpan.textContent = new Date().getFullYear();
 
+            // Form Logic
             const form = document.getElementById('pensionerVisaForm');
             const resultArea = document.getElementById('resultArea');
             const formErrorMessage = document.getElementById('formErrorMessage');
