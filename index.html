@@ -166,6 +166,14 @@
         .third-party-costs ul li { margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative; }
         .third-party-costs ul li::before { content: "•"; position: absolute; left: 0; color: #B45309; font-weight: bold;}
 
+        /* ESTILOS NUEVOS PARA ICONOS DE REQUISITOS (FAQ) */
+        .req-list-container { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+        .req-list-item { display: flex; align-items: flex-start; gap: 1rem; background: #fff; padding: 1rem; border-radius: 0.5rem; border: 1px solid #E5E7EB; }
+        .req-icon-box { background-color: #EFF6FF; color: #2563EB; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .req-icon-box svg { width: 24px; height: 24px; }
+        .req-content strong { color: #1E3A8A; display: block; margin-bottom: 0.25rem; }
+        .req-content p { margin: 0; font-size: 0.95rem; color: #4B5563; line-height: 1.5; }
+
         .faq-container { max-width: 48rem; margin: auto; display: flex; flex-direction: column; gap: 1.5rem; }
         .faq-item { background-color: #F9FAFB; padding: 1.5rem; border-radius: .5rem; border: 1px solid #E5E7EB; }
         .faq-item h3 { font-size: 1.125rem; font-weight: 700; color: #1D4ED8; margin: 0 0 .75rem; }
@@ -325,12 +333,44 @@
                 
                 <div class="faq-item">
                     <h3>What are the specific requirements for the Colombian Pensioner Visa?</h3>
-                    <ul style="margin-top: 0.5rem;">
-                        <li style="margin-bottom: 0.5rem;"><strong>Pension Certification:</strong> Certification proving monthly pension payments to the applicant, with an amount not less than three (3) legal minimum monthly wages in Colombia ($5,240,646 COP, or approximately 1,435 USD, based on the January 2026 exchange rate). Must be apostilled and officially translated to Spanish.</li>
-                        <li style="margin-bottom: 0.5rem;"><strong>Criminal Background Check:</strong> A certificate of judicial, criminal, or police background issued by the authority of the country where the applicant has resided for the last three (3) years. It must be apostilled and officially translated.<br><strong style="color: #D97706;">Attention US Citizens:</strong> You must provide the federal <strong>FBI Identity History Summary</strong>. State or local police certificates are strictly NOT accepted by the Colombian government.</li>
-                        <li style="margin-bottom: 0.5rem;"><strong>Medical Certificate:</strong> A medical certificate issued by a Colombian authority or by the health authority of the country of origin, confirming physical and psychological fitness.</li>
-                        <li><strong>Travel All-risk Assistance Insurance:</strong> An "all risks" policy covering accidents, illness, maternity, disability, hospitalization, death, and repatriation of remains. Must guarantee coverage in Colombia for the entire visa duration.</li>
-                    </ul>
+                    <div class="req-list-container">
+                        <div class="req-list-item">
+                            <div class="req-icon-box">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div class="req-content">
+                                <strong>Pension Certification</strong>
+                                <p>Certification proving monthly pension payments to the applicant, with an amount not less than three (3) legal minimum monthly wages in Colombia ($5,240,646 COP, or approximately 1,435 USD, based on the January 2026 exchange rate). Must be apostilled and officially translated to Spanish.</p>
+                            </div>
+                        </div>
+                        <div class="req-list-item">
+                            <div class="req-icon-box">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div class="req-content">
+                                <strong>Criminal Background Check</strong>
+                                <p>A certificate of judicial, criminal, or police background issued by the authority of the country where the applicant has resided for the last three (3) years. It must be apostilled and officially translated.<br><strong style="color: #D97706;">Attention US Citizens:</strong> You must provide the federal <strong>FBI Identity History Summary</strong>. State or local police certificates are strictly NOT accepted by the Colombian government.</p>
+                            </div>
+                        </div>
+                        <div class="req-list-item">
+                            <div class="req-icon-box">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                            </div>
+                            <div class="req-content">
+                                <strong>Medical Certificate</strong>
+                                <p>A medical certificate issued by a Colombian authority or by the health authority of the country of origin, confirming physical and psychological fitness.</p>
+                            </div>
+                        </div>
+                        <div class="req-list-item">
+                            <div class="req-icon-box">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            </div>
+                            <div class="req-content">
+                                <strong>Travel All-risk Assistance Insurance</strong>
+                                <p>An "all risks" policy covering accidents, illness, maternity, disability, hospitalization, death, and repatriation of remains. Must guarantee coverage in Colombia for the entire visa duration.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="faq-item">
@@ -428,6 +468,13 @@
                         <div class="review-stars">★★★★★</div>
                         <p class="review-text">"My case to migrate to Colombia was quite complicated. However, Camila and Mariangela did everything possible to ensure success. They are excellent communicators and were always one step ahead in answering my questions and making sure I was fully prepared at every step. I wish all lawyers were as professional as they are."</p>
                     </div>
+                </div>
+                
+                <div style="display: flex; justify-content: center; margin-top: 2rem;">
+                    <a href="https://share.google/C2CIZMJ1ttgd3ywJE" target="_blank" class="google-btn">
+                        <img src="google-icon.png" width="20" alt="Google">
+                        View 50+ Google Reviews
+                    </a>
                 </div>
             </div>
         </section>
@@ -557,7 +604,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Mobile Menu
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
             if (mobileMenuButton && mobileMenu) {
@@ -569,7 +615,6 @@
                 });
             }
             
-            // Smooth Scroll
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -580,7 +625,6 @@
                 });
             });
             
-            // Fade-in Animation
             const sections = document.querySelectorAll('.section-fade-in');
             const observer = new IntersectionObserver((entries, obs) => {
                 entries.forEach(entry => {
@@ -592,11 +636,9 @@
             }, { threshold: 0.1 });
             sections.forEach(section => observer.observe(section));
 
-            // Dynamic Year
             const yearSpan = document.getElementById('currentYear');
             if(yearSpan) yearSpan.textContent = new Date().getFullYear();
 
-            // Form Logic
             const form = document.getElementById('pensionerVisaForm');
             const resultArea = document.getElementById('resultArea');
             const formErrorMessage = document.getElementById('formErrorMessage');
