@@ -166,6 +166,16 @@
         .third-party-costs ul li { margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative; }
         .third-party-costs ul li::before { content: "•"; position: absolute; left: 0; color: #B45309; font-weight: bold;}
 
+        .plans-intro { display: grid; gap: 1.25rem; margin-top: 2rem; }
+        @media (min-width: 860px) { .plans-intro { grid-template-columns: repeat(3, 1fr); } }
+        .plan-card { background: #fff; border: 1px solid #E5E7EB; border-radius: 1rem; padding: 1.75rem 1.5rem; text-align: center; display: flex; flex-direction: column; }
+        .plan-card .plan-name { text-transform: uppercase; font-weight: 800; letter-spacing: 0.08em; font-size: 0.85rem; color: #1e3a8a; }
+        .plan-card .plan-price { font-size: 2.75rem; font-weight: 800; color: #1e3a8a; margin: 0.5rem 0 0; }
+        .plan-card .plan-per { font-size: 0.8rem; color: #6B7280; margin-bottom: 1rem; min-height: 2.4em; display: flex; align-items: flex-start; justify-content: center; }
+        .plan-card .plan-slogan { font-size: 0.95rem; font-weight: 600; color: #374151; margin-bottom: 0.75rem; min-height: 3.4em; display: flex; align-items: flex-start; justify-content: center; }
+        .plan-card .plan-best { font-size: 0.85rem; color: #4B5563; line-height: 1.55; background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 1.25rem; flex-grow: 1; }
+        .plan-card.hot { border: 2px solid #f59e0b; box-shadow: 0 12px 24px -8px rgba(245,158,11,.35); }
+
         /* ESTILOS NUEVOS PARA ICONOS DE REQUISITOS (FAQ) */
         .req-list-container { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
         .req-list-item { display: flex; align-items: flex-start; gap: 1rem; background: #fff; padding: 1rem; border-radius: 0.5rem; border: 1px solid #E5E7EB; }
@@ -405,7 +415,7 @@
 
                 <div class="faq-item">
                     <h3>What are the exact government fees for this visa?</h3>
-                    <p>The Colombian government charges in two stages. First, a <strong>Study Fee of $54 USD</strong> must be paid when submitting the application. Once the visa is approved, you must pay an <strong>Issuance Fee of $270 USD</strong>. Additionally, once in Colombia, the Foreigner ID Card (Cédula de Extranjería) costs approximately <strong>$80 USD</strong>. The total government cost is roughly $404 USD.</p>
+                    <p>The Colombian government charges in two stages. First, a <strong>Study Fee of $54 USD</strong> must be paid when submitting the application. Once the visa is approved, you must pay an <strong>Issuance Fee of $270 USD (visa M)</strong>. Additionally, once in Colombia, the Foreigner ID Card (Cédula de Extranjería) costs <strong>$294,000 COP</strong>. These fees are paid separately to the State under Essential and Protected.</p>
                 </div>
 
                 <div class="faq-item">
@@ -516,25 +526,68 @@
         <section class="pricing-section">
             <div class="container">
                 <h2 class="section-title">Transparent Pricing: No Hidden Fees</h2>
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <span style="text-transform: uppercase; font-weight: 700; letter-spacing: 0.1em;">Legal Service Fee</span>
-                        <div class="pricing-price">$500</div>
-                        <span>USD / Single Payment</span>
+                <p class="section-sub" style="text-align: center; color: #4B5563; max-width: 700px; margin: 0 auto;">One number per plan, confirmed on your $80 consultation — credited in full when you hire. Government fees always separate, except in Turnkey, where everything is included.</p>
+                <div class="plans-intro">
+                    <div class="plan-card">
+                        <div class="plan-name">Essential</div>
+                        <div class="plan-price">$350</div>
+                        <div class="plan-per">USD / Single Payment</div>
+                        <div class="plan-slogan">Exactly what's needed for solid cases with time to spare.</div>
+                        <div class="plan-best"><strong>Best for:</strong> a solid pensioner case, no surprises in sight, no urgency (45+ days, no overstay).</div>
                     </div>
-                    <div class="pricing-details">
-                        <h3 style="color: #1e3a8a; margin-top: 0;">What's Included:</h3>
-                        <ul class="pricing-list">
-                            <li>Personalized Legal Strategy by Camila Ocampo.</li>
-                            <li>Full Document Review & Preparation.</li>
-                            <li>Government Platform Management.</li>
-                            <li>Continuous support until approval.</li>
-                            <li>Re-application at NO extra legal cost if needed.</li>
-                        </ul>
-                        <hr style="border: 0; border-top: 1px solid #e5e7eb; margin: 1.5rem 0;">
-                        <h4 style="margin-bottom: 0.5rem; color: #4b5563;">Government Fees (Approx):</h4>
-                        <p style="font-size: 0.9rem; color: #6b7280; line-height:1.5;">Study: $54 USD | Issuance: $270 USD | ID Card: $80.<br><strong>Total Gov: ~$404 USD</strong></p>
+                    <div class="plan-card hot">
+                        <div class="plan-name">Protected</div>
+                        <div class="plan-price">$540</div>
+                        <div class="plan-per">USD / Single Payment</div>
+                        <div class="plan-slogan">Coverage against surprises, no unnecessary costs.</div>
+                        <div class="plan-best"><strong>Best for:</strong> a case that could bring a requirement or inadmission, or any urgency (under 45 days, overstay).</div>
                     </div>
+                    <div class="plan-card">
+                        <div class="plan-name">Turnkey</div>
+                        <div class="plan-price">$2,900</div>
+                        <div class="plan-per">USD flat · 50% on signing, 50% on filing</div>
+                        <div class="plan-slogan">Full management until your document is delivered.</div>
+                        <div class="plan-best"><strong>Best for:</strong> zero availability for payments, certificates, appointments or errands — we handle it all, government fees included.</div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin: 2.5rem auto 0; max-width: 640px;">
+                    <p style="color: #1E3A8A; font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem;">Not sure which plan fits your case?</p>
+                    <p style="color: #4B5563; font-size: 1rem; margin-bottom: 1.5rem;">Book a 1-on-1 consultation and Camila will help you choose the right plan for your profile — before you pay a single dollar more.</p>
+                    <a href="https://calendar.app.google/pt5Dy9kzpkR29tpP7" target="_blank" class="btn cta-consultation" style="max-width: 460px; margin-left: auto; margin-right: auto;">Book Your $80 Consultation</a>
+                    <p style="font-size: 0.85rem; color: #6B7280; margin-top: 0.75rem;">Credited in full when you hire any plan.</p>
+                </div>
+
+                <div style="overflow-x: auto; border: 1px solid #E5E7EB; border-radius: 1rem; background: #fff; margin-top: 2rem;">
+                <p style="font-size: 0.8rem; color: #6B7280; margin: 0; padding: 0.9rem 1rem 0;">All prices in USD. Cédula government fee in COP.</p>
+                <table style="width: 100%; min-width: 720px; table-layout: fixed; border-collapse: collapse; font-size: 0.82rem;">
+                    <thead>
+                        <tr style="background: #1e3a8a; color: #fff;">
+                            <th style="text-align: left; padding: 12px 14px; width: 40%;">Pensioner service</th>
+                            <th style="padding: 12px 10px; width: 20%;">Essential<br>$350</th>
+                            <th style="padding: 12px 10px; width: 20%; background: #f59e0b;">Protected<br>$540 ★</th>
+                            <th style="padding: 12px 10px; width: 20%;">Turnkey<br>$2,900</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td style="padding: 9px 14px;">Strategy consultation ($80, credited on hire)</td><td align="center">✓</td><td align="center" style="background: #EFF6FF;">✓</td><td align="center">✓</td></tr>
+                        <tr style="background: #F9FAFB;"><td style="padding: 9px 14px;">Document Review & Building</td><td align="center">✓</td><td align="center" style="background: #EFF6FF;">✓</td><td align="center">✓</td></tr>
+                        <tr><td style="padding: 9px 14px;">Legal guidance until file complete</td><td align="center">✓</td><td align="center" style="background: #EFF6FF;">✓</td><td align="center">✓</td></tr>
+                        <tr style="background: #F9FAFB;"><td style="padding: 9px 14px;">Final file prep, SITAC filing, daily tracking</td><td align="center">✓</td><td align="center" style="background: #EFF6FF;">✓</td><td align="center">✓</td></tr>
+                        <tr><td style="padding: 9px 14px;">Official Spanish translations (per page)</td><td align="center"><b>$20</b></td><td align="center" style="background: #EFF6FF;"><small>Up to 2 pages included</small></td><td align="center"><small>All included</small></td></tr>
+                        <tr style="background: #F9FAFB;"><td style="padding: 9px 14px;">Cancillería requirements + response</td><td align="center"><b>$80</b> each</td><td align="center" style="background: #EFF6FF;"><small>Up to 2 included</small></td><td align="center"><small>All included</small></td></tr>
+                        <tr><td style="padding: 9px 14px;">Inadmission & re-application</td><td align="center"><b>$80</b></td><td align="center" style="background: #EFF6FF;"><small>1 included, no legal fees</small></td><td align="center"><small>All needed</small></td></tr>
+                        <tr style="background: #F9FAFB;"><td style="padding: 9px 14px;">Criminal records procurement (US/CA)</td><td align="center"><b>$150</b></td><td align="center" style="background: #EFF6FF;"><b>$150</b></td><td align="center">✓</td></tr>
+                        <tr><td style="padding: 9px 14px;">Records apostille (US/CA, each)</td><td align="center"><b>$140</b></td><td align="center" style="background: #EFF6FF;"><b>$140</b></td><td align="center">✓</td></tr>
+                        <tr style="background: #F9FAFB;"><td style="padding: 9px 14px;">State/provincial apostilles (US/CA, each)</td><td align="center"><b>$160</b></td><td align="center" style="background: #EFF6FF;"><b>$160</b></td><td align="center">✓</td></tr>
+                        <tr><td style="padding: 9px 14px;">Police fingerprinting in Colombia (FBI/RCMP)</td><td align="center"><b>$320</b></td><td align="center" style="background: #EFF6FF;"><b>$320</b></td><td align="center">✓</td></tr>
+                        <tr style="background: #F9FAFB;"><td style="padding: 9px 14px;">Visa registration in Migración Colombia</td><td align="center">✓</td><td align="center" style="background: #EFF6FF;">✓</td><td align="center">✓</td></tr>
+                        <tr><td style="padding: 9px 14px;">Cédula de Extranjería appointment</td><td align="center"><b>$60</b></td><td align="center" style="background: #EFF6FF;"><small>Up to 2x included</small></td><td align="center"><small>All needed</small></td></tr>
+                        <tr style="background: #F9FAFB;"><td style="padding: 9px 14px;">Cédula pickup with POA</td><td align="center"><b>$95</b></td><td align="center" style="background: #EFF6FF;"><b>$95</b></td><td align="center">✓</td></tr>
+                        <tr><td style="padding: 9px 14px;">Beneficiary visa legal fee</td><td align="center"><b>$350</b></td><td align="center" style="background: #EFF6FF;"><b>$200</b></td><td align="center"><b>$100</b></td></tr>
+                        <tr style="background: #F9FAFB;"><td style="padding: 9px 14px;">Government fees (Study $54 USD + Issuance M $270 USD + Cédula $294,000 COP)</td><td align="center"><small>Separate</small></td><td align="center" style="background: #EFF6FF;"><small>Separate</small></td><td align="center"><small>Included</small></td></tr>
+                        <tr style="background: #1e3a8a; color: #fff;"><td style="padding: 11px 14px;"><b>Price</b></td><td align="center"><b>$350</b></td><td align="center" style="background: #b45309;"><b>$540 ★</b></td><td align="center"><b>$2,900</b></td></tr>
+                    </tbody>
+                </table>
                 </div>
 
                 <div class="third-party-costs">
@@ -543,14 +596,15 @@
                     
                     <p style="font-weight: 700; margin-top: 1.25rem; margin-bottom: 0.5rem; color: #92400E; font-size: 0.95rem;">Universal Requirements (For all applicants):</p>
                     <ul>
-                        <li><strong>Travel All-risk Assistance Insurance:</strong> Usually ranges between $600 and $800 USD per year, depending on your age and the coverage provided by the insurance company.</li>
-                        <li><strong>Official Spanish Translations:</strong> Approx. $20 USD per page (required for any document not originally issued in Spanish).</li>
+                        <li><strong>Travel All-risk Assistance Insurance:</strong> Usually ranges between $450 and $600 USD per year, depending on your age and the coverage provided by the insurance company.</li>
+                        <li><strong>Official Spanish Translations:</strong> $20 USD per page with a plan ($25 without). Protected includes up to 2 pages.</li>
                     </ul>
 
                     <p style="font-weight: 700; margin-top: 1.25rem; margin-bottom: 0.5rem; color: #92400E; font-size: 0.95rem;">Specific to US Citizens & Applying from Colombia:</p>
                     <ul>
-                        <li><strong>US Apostille for Pension Letter & FBI Check:</strong> Approx. $150 USD per document.</li>
-                        <li><strong>Physical FBI Fingerprinting in Colombia:</strong> Approx. $200 USD (Only required if you need to request the FBI background check while already physically in Colombia).</li>
+                        <li><strong>US criminal records procurement:</strong> Approx. $150 USD with a plan ($170 without).</li>
+                        <li><strong>Records apostille (US/CA):</strong> Approx. $140 USD per document ($160 without). State apostilles: approx. $160 each ($180 without).</li>
+                        <li><strong>Physical FBI Fingerprinting in Colombia:</strong> Approx. $320 USD with a plan ($360 without). Only required if you need to request the FBI background check while already physically in Colombia.</li>
                     </ul>
                 </div>
 
@@ -571,7 +625,7 @@
                         </div>
                         <div class="commitment-box">
                             <h3 style="color:#166534; font-size:1.25rem;">Our Commitment to Success</h3>
-                            <p style="color:#15803D; margin:0;">We only represent cases that meet legal requirements. If your visa is Inadmitted or Denied, we re-apply and adapt the strategy at no extra legal cost (you only cover the government's $54 USD study fee).</p>
+                            <p style="color:#15803D; margin:0;">We only represent cases that meet legal requirements. If your visa is inadmitted, we re-apply once at no extra legal cost (you only cover each new $54 USD government study fee). Protected covers up to 2 requirements and the cédula registration/appointment (up to 2x).</p>
                         </div>
                         <div>
                             <h3>Navigate the Bureaucracy with Ease</h3>
@@ -608,6 +662,7 @@
                     <a href="https://www.colombianpassport.com/who-is-camila-ocampo">Meet Camila Ocampo (Full Bio)</a>
                     <a href="https://www.colombianpassport.com/newsroom">Immigration News & Blog</a>
                     <a href="https://www.colombianpassport.com/privacy-policy" target="_blank">Privacy Policy</a>
+                    <a href="https://www.colombianpassport.com/terms-and-conditions" target="_blank">Terms and Conditions</a>
                 </div>
             </div>
             <div style="border-top: 1px solid #374151; padding-top: 1.5rem;">
