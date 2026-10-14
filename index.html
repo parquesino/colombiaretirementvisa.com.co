@@ -254,7 +254,7 @@
             <div class="hero-requirements-box">
                 <h3>Quick Look: 2026 Visa Requirements</h3>
                 <ul class="hero-requirements-list">
-                    <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Pension Certification (>$1,450 USD/mo)</li>
+                    <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Pension Certification (>$1,610 USD/mo, Oct 2026 rate)</li>
                     <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Travel All-risk Assistance Insurance</li>
                     <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Clean Criminal Background Check</li>
                     <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Medical Certificate of Fitness</li>
@@ -283,8 +283,8 @@
                     <form id="pensionerVisaForm">
                         <div>
                             <span class="form-step-badge">Requirement 1: Financial</span>
-                            <label for="pensionAmount" class="form-label">Is your monthly pension income higher than $1,450 USD?</label>
-                            <input type="number" id="pensionAmount" name="pensionAmount" class="form-input" placeholder="Enter amount, e.g., 1500" required min="0">
+                            <label for="pensionAmount" class="form-label">Is your monthly pension income higher than $1,610 USD (Oct 2026 rate)?</label>
+                            <input type="number" id="pensionAmount" name="pensionAmount" class="form-input" placeholder="Enter amount, e.g., 1610" required min="0">
                             <span class="error-message" id="pensionAmountError"></span>
                         </div>
                         
@@ -360,7 +360,7 @@
                             </div>
                             <div class="req-content">
                                 <strong>Pension Certification</strong>
-                                <p>Certification proving monthly pension payments to the applicant, with an amount not less than three (3) legal minimum monthly wages in Colombia ($5,240,646 COP, or approximately 1,435 USD, based on the January 2026 exchange rate). Must be apostilled and officially translated to Spanish.</p>
+                                <p>Certification proving monthly pension payments to the applicant, with an amount not less than three (3) legal minimum monthly wages in Colombia ($5,240,646 COP, or approximately $1,610 USD, Oct 2026 rate: 1 USD = 3,250 COP). Must be apostilled and officially translated to Spanish.</p>
                             </div>
                         </div>
                         <div class="req-list-item">
@@ -729,14 +729,14 @@
                     
                     let status = 'MORE_INFO_NEEDED';
                     
-                    if (criminalRecord === 'yes' || pensionAmount < 1400) {
+                    if (criminalRecord === 'yes' || pensionAmount < 1560) {
                         status = 'NOT_QUALIFIED';
                     } else if (pensionCert === 'no' || pensionCert === 'unsure' || medicalCert === 'no' || medicalCert === 'unsure') {
                          status = 'MORE_INFO_NEEDED';
                     } else {
-                        if (pensionAmount >= 1400 && pensionAmount <= 1500) {
+                        if (pensionAmount >= 1560 && pensionAmount <= 1660) {
                             status = 'QUALIFIED_WITH_WARNING';
-                        } else if (pensionAmount > 1500) {
+                        } else if (pensionAmount > 1660) {
                             status = 'QUALIFIED';
                         }
                     }
